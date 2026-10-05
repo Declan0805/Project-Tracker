@@ -10,6 +10,11 @@ public class Project{
         this.name = name;
         this.status = status;
     }
+    public Project(){
+
+    }
+
+    // Getters for Project values
     public int getId(){
         return id;
     }
@@ -18,5 +23,15 @@ public class Project{
     }
     public String getStatus(){
         return status;
+    }
+    // Setters for Project values (the no arguments constructor)
+    public void setId(int id){
+        this.id = id;
+    }
+    public void setName(String name){
+        this.name = name;
+    }
+    public void setStatus(String status){
+        this.status = status;
     }
 }
