@@ -1,6 +1,7 @@
 package ProjectTracker.controller;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,9 +24,9 @@ public class ProjectController {
     public ResponseEntity<Project> getProjectById(@PathVariable int id){
         for (Project project : projects) { 
             if (project.getId() == id){
-                return project;
+                return ResponseEntity.ok(project);
             }
         }
-        return null;
+        return ResponseEntity.notFound().build();
     }
 }
