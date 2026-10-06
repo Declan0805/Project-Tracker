@@ -12,7 +12,7 @@ public class ProjectService {
     public ProjectService(){
         projects.add(new Project(1, "Data Structures", "IN_PROGRESS"));
     }
-    public Boolean createProject(Project project){
+    public boolean createProject(Project project){
         for (Project existingProject : projects){
             if (existingProject.getId() == project.getId()){
                 return false;
@@ -20,6 +20,16 @@ public class ProjectService {
         }
         projects.add(project);
         return true;
+    }
+    public Project updateProject(int id, Project updatedProject){
+        for (Project existingProject : projects){
+            if (existingProject.getId() == id){
+                existingProject.setStatus(updatedProject.getStatus());
+                existingProject.setName(updatedProject.getName());
+                return existingProject;
+            }
+        }
+        return null;
     }
     public List<Project> getProjects(){
         return projects;

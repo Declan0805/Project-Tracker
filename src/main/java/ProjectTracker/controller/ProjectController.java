@@ -37,22 +37,18 @@ public class ProjectController {
     }
     @PostMapping("/projects")
     public ResponseEntity<Project> createProject(@RequestBody Project project){
-        for(Project existingProject : projects){
-            if (existingProject.getId() == project.getId()){
-                return ResponseEntity.status(409).build();
-            }
+        boolean created = projectService.createProject(project);
+        if (!created){
+            return ResponseEntity.status(409).build();
         }
-        projects.add(project);
         return ResponseEntity.status(201).body(project);
     }
     @PutMapping("/projects/{id}")
     public ResponseEntity<Project> updateProject(@PathVariable int id, @RequestBody Project updatedProject){
-        for (Project project : projects){
-            if (project.getId() == id){
-                project.setName(updatedProject.getName());
-                project.setStatus(updatedProject.getStatus());
-                return ResponseEntity.ok(project);
-            }
+        Project updated = projectService.updateProject(id, updatedProject);
+        if(updated != null){
+            return ResponseEntity.ok(updated);
+
         }
         return ResponseEntity.notFound().build();
     } 
