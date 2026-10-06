@@ -12,24 +12,26 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import ProjectTracker.model.Project;
+import ProjectTracker.service.ProjectService;
 
 @RestController
 
 public class ProjectController {
+    private ProjectService projectService;
     List<Project> projects = new ArrayList<>();
-    public ProjectController(){
-        projects.add(new Project(1,"Data Structures", "IN_PROGRESS"));
+    
+    public ProjectController(ProjectService projectService){
+        this.projectService = projectService;
     }
     @GetMapping("/projects")
     public List<Project> getProjects(){
-        return projects;
+        return projectService.getProjects();
     }
     @GetMapping("/projects/{id}")
     public ResponseEntity<Project> getProjectById(@PathVariable int id){
-        for (Project project : projects) { 
-            if (project.getId() == id){
-                return ResponseEntity.ok(project);
-            }
+        Project project = projectService.getProjectById(id);
+        if (project != null){
+            return ResponseEntity.ok(project);
         }
         return ResponseEntity.notFound().build();
     }
