@@ -1,5 +1,4 @@
 package ProjectTracker.controller;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
@@ -18,7 +17,6 @@ import ProjectTracker.service.ProjectService;
 
 public class ProjectController {
     private ProjectService projectService;
-    List<Project> projects = new ArrayList<>();
     
     public ProjectController(ProjectService projectService){
         this.projectService = projectService;
@@ -54,13 +52,10 @@ public class ProjectController {
     } 
     @DeleteMapping("/projects/{id}")
     public ResponseEntity<Void> deleteProject(@PathVariable int id){
-        for (int i=0; i < projects.size(); i++){
-            Project project = projects.get(i);
-            if (project.getId() == id){
-                projects.remove(i);
-                return ResponseEntity.status(204).build();
-            }
+        Project deleted = projectService.deleteProject(id);
+        if(deleted != null){
+            return ResponseEntity.status(204).build();
         }
-        return ResponseEntity.status(404).build();
+        return ResponseEntity.notFound().build();
     }
 }

@@ -31,6 +31,16 @@ public class ProjectService {
         }
         return null;
     }
+    public Project deleteProject(int id){
+        for (int i=0; i<projects.size(); i++){
+            Project project = projects.get(i);
+            if (project.getId() == id){
+                projects.remove(i);
+                return project;
+            }
+        }
+        return null;
+    }
     public List<Project> getProjects(){
         return projects;
     }
