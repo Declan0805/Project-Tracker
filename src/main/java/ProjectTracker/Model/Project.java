@@ -8,11 +8,11 @@ import jakarta.persistence.Id;
 public class Project{
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
     private String name;
     private String status;
     
-    public Project(int id, String name, String status){
+    public Project(Integer id, String name, String status){
         this.id = id;
         this.name = name;
         this.status = status;
@@ -22,7 +22,7 @@ public class Project{
     }
 
     // Getters for Project values
-    public int getId(){
+    public Integer getId(){
         return id;
     }
     public String getName(){
@@ -32,7 +32,7 @@ public class Project{
         return status;
     }
     // Setters for Project values (the no arguments constructor)
-    public void setId(int id){
+    public void setId(Integer id){
         this.id = id;
     }
     public void setName(String name){

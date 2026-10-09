@@ -28,7 +28,13 @@ public class ProjectService {
         return null;
     }
     public Project deleteProject(int id){
-        return projectRepository.deleteProject(id);
+        Optional<Project> existingProject = projectRepository.findById(id);
+        if (existingProject.isPresent()){
+            Project project = existingProject.get();
+            projectRepository.delete(project);
+            return project;
+        }
+        return null;
     }
     public List<Project> getProjects(){
         return projectRepository.findAll();
