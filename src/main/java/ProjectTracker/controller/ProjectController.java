@@ -35,11 +35,8 @@ public class ProjectController {
     }
     @PostMapping("/projects")
     public ResponseEntity<Project> createProject(@RequestBody Project project){
-        boolean created = projectService.createProject(project);
-        if (!created){
-            return ResponseEntity.status(409).build();
-        }
-        return ResponseEntity.status(201).body(project);
+        Project created = projectService.createProject(project);
+        return ResponseEntity.status(201).body(created);
     }
     @PutMapping("/projects/{id}")
     public ResponseEntity<Project> updateProject(@PathVariable int id, @RequestBody Project updatedProject){

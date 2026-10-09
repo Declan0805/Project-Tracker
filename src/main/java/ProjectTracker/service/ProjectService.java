@@ -1,6 +1,7 @@
 package ProjectTracker.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -12,19 +13,29 @@ public class ProjectService {
     public ProjectService(ProjectRepository projectRepository){
         this.projectRepository = projectRepository;
     }
-    public boolean createProject(Project project){
-        return projectRepository.create(project);
+    public Project createProject(Project project){
+        return projectRepository.save(project);
     }
     public Project updateProject(int id, Project updatedProject){
-        return projectRepository.updateProject(id, updatedProject);
+        Optional<Project> existingProject = projectRepository.findById(id);
+        if (existingProject.isPresent()){
+           Project project = existingProject.get();
+           project.setName(updatedProject.getName());
+           project.setStatus(updatedProject.getStatus());
+
+           return projectRepository.save(project);
+        }
+        return null;
     }
     public Project deleteProject(int id){
         return projectRepository.deleteProject(id);
     }
     public List<Project> getProjects(){
-        return projectRepository.getProjects();
+        return projectRepository.findAll();
     }
     public Project getProjectById(int id){
-        return projectRepository.getProjectById(id);
+        Optional<Project> project = projectRepository.findById(id);
+        
+        return project.orElse(null);
     }
 }
