@@ -1,18 +1,24 @@
 package ProjectTracker.model;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotBlank;
+
 
 @Entity
 public class Project{
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Integer id;
+    @NotBlank
     private String name;
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private ProjectStatus status;
     
-    public Project(Integer id, String name, String status){
+    public Project(Integer id, String name, ProjectStatus status){
         this.id = id;
         this.name = name;
         this.status = status;
@@ -28,7 +34,7 @@ public class Project{
     public String getName(){
         return name;
     }
-    public String getStatus(){
+    public ProjectStatus getStatus(){
         return status;
     }
     // Setters for Project values (the no arguments constructor)
@@ -38,7 +44,7 @@ public class Project{
     public void setName(String name){
         this.name = name;
     }
-    public void setStatus(String status){
+    public void setStatus(ProjectStatus status){
         this.status = status;
     }
 }

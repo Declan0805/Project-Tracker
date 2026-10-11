@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
+import jakarta.validation.Valid;
 import ProjectTracker.model.Project;
 import ProjectTracker.service.ProjectService;
 
@@ -34,7 +34,7 @@ public class ProjectController {
         return ResponseEntity.notFound().build();
     }
     @PostMapping("/projects")
-    public ResponseEntity<Project> createProject(@RequestBody Project project){
+    public ResponseEntity<Project> createProject(@Valid @RequestBody Project project){
         Project created = projectService.createProject(project);
         return ResponseEntity.status(201).body(created);
     }
