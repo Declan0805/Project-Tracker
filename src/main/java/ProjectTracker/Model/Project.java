@@ -6,6 +6,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 
 @Entity
@@ -15,6 +16,7 @@ public class Project{
     private Integer id;
     @NotBlank
     private String name;
+    @NotNull
     @Enumerated(EnumType.STRING)
     private ProjectStatus status;
     
